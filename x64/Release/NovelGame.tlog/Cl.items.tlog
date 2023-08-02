@@ -1,0 +1,11 @@
+C:\Users\queva\source\repos\NovelGame\audio\Audio.cpp;C:\Users\queva\source\repos\NovelGame\x64\Release\Audio.obj
+C:\Users\queva\source\repos\NovelGame\entity\Character.cpp;C:\Users\queva\source\repos\NovelGame\x64\Release\Character.obj
+C:\Users\queva\source\repos\NovelGame\core\Application.cpp;C:\Users\queva\source\repos\NovelGame\x64\Release\Application.obj
+C:\Users\queva\source\repos\NovelGame\core\BMemory.cpp;C:\Users\queva\source\repos\NovelGame\x64\Release\BMemory.obj
+C:\Users\queva\source\repos\NovelGame\core\Math.cpp;C:\Users\queva\source\repos\NovelGame\x64\Release\Math.obj
+C:\Users\queva\source\repos\NovelGame\core\Scene.cpp;C:\Users\queva\source\repos\NovelGame\x64\Release\Scene.obj
+C:\Users\queva\source\repos\NovelGame\core\Time.cpp;C:\Users\queva\source\repos\NovelGame\x64\Release\Time.obj
+C:\Users\queva\source\repos\NovelGame\rendering\Font.cpp;C:\Users\queva\source\repos\NovelGame\x64\Release\Font.obj
+C:\Users\queva\source\repos\NovelGame\main.cpp;C:\Users\queva\source\repos\NovelGame\x64\Release\main.obj
+C:\Users\queva\source\repos\NovelGame\rendering\Texture.cpp;C:\Users\queva\source\repos\NovelGame\x64\Release\Texture.obj
+C:\Users\queva\source\repos\NovelGame\rendering\Window.cpp;C:\Users\queva\source\repos\NovelGame\x64\Release\Window.obj
