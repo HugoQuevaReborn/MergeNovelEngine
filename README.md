@@ -42,9 +42,9 @@
   -  Dear ImGUI
 
   ### Currently working systems
-  | Implémenté | En cours | Non implémenté |
+  | Implemented | Working on | Not implemented |
   | :----------- | :------------: | ------------: |
-  | Affichage    |  UI   |   Langage personnalisé   |
+  | Rendering    |  UI   |   Custom language   |
   | Textures     |  Audio|
 
 
