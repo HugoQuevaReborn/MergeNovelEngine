@@ -9,11 +9,10 @@
   Ce moteur contient les outils nécéssaire pour la création d'un jeu vidéo.
   
   ### Technologies utilisées
-  -  SDL2
-  -  SDL2_image
-  -  SDL2_ttf
-  -  SDL2_mixer
-  -  Dear ImGUI
+  ![Sdl-logo](https://github.com/HugoQuevaReborn/NovelEngine/assets/139586455/a74a4b72-24a4-4aae-940b-39655357c7f4)
+  
+  ![vulkan_new](https://github.com/HugoQuevaReborn/NovelEngine/assets/139586455/fedf9351-3927-451e-bcba-198fedb3410b)
+
 
   ### Système fonctionnent actuellement
   | Implémenté | En cours | Non implémenté |
@@ -35,11 +34,11 @@
   This engine contains all the necessary tools for novel creation.
   
   ### Technologies used
-  -  SDL2
-  -  SDL2_image
-  -  SDL2_ttf
-  -  SDL2_mixer
-  -  Dear ImGUI
+    
+  ![Sdl-logo](https://github.com/HugoQuevaReborn/NovelEngine/assets/139586455/a74a4b72-24a4-4aae-940b-39655357c7f4)
+  
+  ![vulkan_new](https://github.com/HugoQuevaReborn/NovelEngine/assets/139586455/fedf9351-3927-451e-bcba-198fedb3410b)
+
 
   ### Currently working systems
   | Implemented | Working on | Not implemented |
