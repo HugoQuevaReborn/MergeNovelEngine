@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\queva\source\repos\NovelGame\x64\Debug\NovelGame.exe</FullPath>
+      <FullPath>C:\NovelEngine\x64\Debug\NovelGame.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

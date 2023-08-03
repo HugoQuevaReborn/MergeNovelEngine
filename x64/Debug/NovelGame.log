@@ -1,1 +1,30 @@
-﻿  NovelGame.vcxproj -> C:\Users\queva\source\repos\NovelGame\x64\Debug\NovelGame.exe
+﻿  Audio.cpp
+  Character.cpp
+C:\NovelEngine\core\Math.h(111,14): warning C4244: 'return' : conversion de 'double' en 'float', perte possible de données
+  Application.cpp
+  BMemory.cpp
+  Math.cpp
+C:\NovelEngine\core\Math.h(111,14): warning C4244: 'return' : conversion de 'double' en 'float', perte possible de données
+  Scene.cpp
+C:\NovelEngine\core\Math.h(111,14): warning C4244: 'return' : conversion de 'double' en 'float', perte possible de données
+  Time.cpp
+  Font.cpp
+  main.cpp
+  Texture.cpp
+C:\NovelEngine\core\Math.h(111,14): warning C4244: 'return' : conversion de 'double' en 'float', perte possible de données
+  Window.cpp
+C:\NovelEngine\rendering\Window.cpp(66,43): warning C4244: '=' : conversion de 'Uint64' en 'float', perte possible de données
+C:\NovelEngine\rendering\Window.cpp(106,43): warning C4244: '=' : conversion de 'Uint64' en 'float', perte possible de données
+  imgui_sdl.cpp
+  UI.cpp
+C:\NovelEngine\ui\UI.cpp(19,93): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
+C:\NovelEngine\ui\UI.cpp(19,53): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
+C:\NovelEngine\ui\UI.cpp(22,48): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+  imgui.cpp
+  imgui_demo.cpp
+  imgui_draw.cpp
+  imgui_impl_sdl2.cpp
+  imgui_tables.cpp
+  imgui_widgets.cpp
+  Génération de code en cours...
+  NovelGame.vcxproj -> C:\NovelEngine\x64\Debug\NovelGame.exe
