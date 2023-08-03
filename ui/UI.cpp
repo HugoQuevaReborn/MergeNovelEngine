@@ -24,11 +24,9 @@ void UI::Render()
 	ImGui::NewFrame();
 
 	{
-		/*Disabled in main branch to allow execution
-		ImGui::BeginMenu("DEBUG");
-		ImGui::Text("Hello World");
+		ImGui::Begin("DEBUG");
+		ImGui::Text("");
 		ImGui::End();
-		*/
 	}
 
 	ImGui::Render();
