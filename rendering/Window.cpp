@@ -1,5 +1,6 @@
 #include "Window.h"
 #include <iostream>
+#include <SDL2/SDL_vulkan.h>
 #include "../core/Application.h"
 #include "../core/Timer.h"
 #include "../rendering/Texture.h"
@@ -17,8 +18,6 @@ Window::Window() {
 		__WINDOW_HEIGHT,
 		SDL_WINDOW_VULKAN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_INPUT_GRABBED
 	);
-
-	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
 }
 
 float Window::GetFramePerSeconds()
@@ -43,14 +42,10 @@ int Window::GetTicks()
 
 void Window::Initialize()
 {
+	
+	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
+
 	UI::Initialize();
-	SDL_Texture* texture = TextureLoader::LoadTexture("HyperSpeedLogo.png");
-	int size = 850;
-	Application::Get().GetScene().GetBackground().SetTexture(texture);
-	Application::Get().GetScene().GetBackground().position.x = 10;
-	Application::Get().GetScene().GetBackground().position.y = 10;
-	Application::Get().GetScene().GetBackground().scale.x = size;
-	Application::Get().GetScene().GetBackground().scale.y = size;
 	loop();
 }
 
@@ -119,8 +114,106 @@ void Window::draw()
 	SDL_RenderPresent(GetRendererInstance());
 }
 
+void Window::vkInit()
+{
+	const VkInstanceCreateInfo instInfo = vkCreateInstanceInfo();
+
+	vkCreateInstance(&instInfo, nullptr, &m_vkInstance);
+
+	vkCreateNewDevice();
+}
+
+const VkInstanceCreateInfo Window::vkCreateInstanceInfo()
+{
+	uint32_t extensionCount;
+	const char** extensionNames = 0;
+	SDL_Vulkan_GetInstanceExtensions(m_window, &extensionCount, nullptr);
+	extensionNames = new const char* [extensionCount];
+	SDL_Vulkan_GetInstanceExtensions(m_window, &extensionCount, extensionNames);
+
+	return const VkInstanceCreateInfo {
+	   VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO, // sType
+	   nullptr,                                // pNext
+	   0,                                      // flags
+	   nullptr,                                // pApplicationInfo
+	   0,                                      // enabledLayerCount
+	   nullptr,                                // ppEnabledLayerNames
+	   extensionCount,                         // enabledExtensionCount
+	   extensionNames,                         // ppEnabledExtensionNames
+	};
+}
+
+void Window::vkCreateNewDevice()
+{
+	uint32_t physicalDeviceCount;
+	vkEnumeratePhysicalDevices(m_vkInstance, &physicalDeviceCount, nullptr);
+	std::vector<VkPhysicalDevice> physicalDevices(physicalDeviceCount);
+	vkEnumeratePhysicalDevices(m_vkInstance, &physicalDeviceCount, physicalDevices.data());
+	VkPhysicalDevice physicalDevice = physicalDevices[0];
+
+	uint32_t queueFamilyCount;
+	vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, &queueFamilyCount, nullptr);
+	std::vector<VkQueueFamilyProperties> queueFamilies(queueFamilyCount);
+	vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, &queueFamilyCount, queueFamilies.data());
+
+	VkSurfaceKHR surface;
+	SDL_Vulkan_CreateSurface(m_window, m_vkInstance, &surface);
+
+	uint32_t graphicsQueueIndex = UINT32_MAX;
+	uint32_t presentQueueIndex = UINT32_MAX;
+	VkBool32 support;
+	uint32_t i = 0;
+
+	for (const VkQueueFamilyProperties& queueFamily : queueFamilies) {
+		if (graphicsQueueIndex == UINT32_MAX && queueFamily.queueCount > 0 && queueFamily.queueFlags & VK_QUEUE_GRAPHICS_BIT)
+			graphicsQueueIndex = i;
+		if (presentQueueIndex == UINT32_MAX) {
+			vkGetPhysicalDeviceSurfaceSupportKHR(physicalDevice, i, surface, &support);
+			if (support)
+				presentQueueIndex = i;
+		}
+		++i;
+	}
+
+	float queuePriority = 1.0f;
+	VkDeviceQueueCreateInfo queueInfo {
+		VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO, // sType
+		nullptr,                                    // pNext
+		0,                                          // flags
+		graphicsQueueIndex,                         // graphicsQueueIndex
+		1,                                          // queueCount
+		&queuePriority,                             // pQueuePriorities
+	};
+
+	VkPhysicalDeviceFeatures deviceFeatures = {};
+	const char* deviceExtensionNames[] = { VK_KHR_SWAPCHAIN_EXTENSION_NAME };
+	VkDeviceCreateInfo createInfo = {
+		VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO,   // sType
+		nullptr,                                // pNext
+		0,                                      // flags
+		1,                                      // queueCreateInfoCount
+		&queueInfo,                             // pQueueCreateInfos
+		0,                                      // enabledLayerCount
+		nullptr,                                // ppEnabledLayerNames
+		1,                                      // enabledExtensionCount
+		deviceExtensionNames,                   // ppEnabledExtensionNames
+		&deviceFeatures,                        // pEnabledFeatures
+	};
+
+	vkCreateDevice(physicalDevice, &createInfo, nullptr, &m_device);
+
+	VkQueue graphicsQueue;
+	vkGetDeviceQueue(m_device, graphicsQueueIndex, 0, &graphicsQueue);
+
+	VkQueue presentQueue;
+	vkGetDeviceQueue(m_device, presentQueueIndex, 0, &presentQueue);
+}
+
 Window::~Window() {
+	vkDestroyDevice(m_device, nullptr);
+	vkDestroyInstance(m_vkInstance, nullptr);
 	SDL_DestroyWindow(m_window);
+	SDL_Vulkan_UnloadLibrary();
 }
 
 SDL_Window* Window::GetWindowInstance()

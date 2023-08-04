@@ -29,7 +29,6 @@ public:
 	
 	Window& GetWindow() const { return *m_application_window.get(); }
 	Scene& GetScene() { return *m_scene; }
-	Font* default_font;
 
 private:
 

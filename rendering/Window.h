@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+#include <vulkan/vulkan.h>
 
 #define __WINDOW_WITDH	850
 #define __WINDOW_HEIGHT	600
@@ -47,12 +48,18 @@ private:
 	/// </summary>
 	void draw();
 
+	void vkInit();
+	void vkCreateNewDevice();
+	const VkInstanceCreateInfo vkCreateInstanceInfo();
+
 	const int m_frameDelay = 1000 / __WINDOW_FPS;
 	float m_lastTick = 0;
 	float m_currentTick = 0;
 	uint32_t m_frameStart = 0;
 	uint32_t m_frameTime = 0;
-
+	VkDevice m_device;
+	VkInstance m_vkInstance;
+	
 	SDL_Window* m_window;
 	SDL_Renderer* m_renderer;
 	SDL_Surface* m_debugSurface = nullptr;
