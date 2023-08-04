@@ -125,6 +125,8 @@ void Window::vkInit()
 
 const VkInstanceCreateInfo Window::vkCreateInstanceInfo()
 {
+	//We get all the names of the extensions that Vulkan can find in order to create a Vulkan surface
+	//and a VkInstanceCreateInfo{} containing the necessary info for Vulkan to vkCreateInstance();
 	uint32_t extensionCount;
 	const char** extensionNames = 0;
 	SDL_Vulkan_GetInstanceExtensions(m_window, &extensionCount, nullptr);
@@ -145,11 +147,16 @@ const VkInstanceCreateInfo Window::vkCreateInstanceInfo()
 
 void Window::vkCreateNewDevice()
 {
+
+	//Enumerate through all the GPU Vulkan can find, following with allocating enough space in a vector
+	//for all the graphic card(s) to be contained, then we get all the graphic card(s) with physicialDevices.data()
+	//this application only supports 1 GPU rendering. So it is going to get the first GPU found.
 	uint32_t physicalDeviceCount;
 	vkEnumeratePhysicalDevices(m_vkInstance, &physicalDeviceCount, nullptr);
 	std::vector<VkPhysicalDevice> physicalDevices(physicalDeviceCount);
 	vkEnumeratePhysicalDevices(m_vkInstance, &physicalDeviceCount, physicalDevices.data());
 	VkPhysicalDevice physicalDevice = physicalDevices[0];
+
 
 	uint32_t queueFamilyCount;
 	vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, &queueFamilyCount, nullptr);
