@@ -131,7 +131,7 @@ const VkInstanceCreateInfo Window::vkCreateInstanceInfo()
 	extensionNames = new const char* [extensionCount];
 	SDL_Vulkan_GetInstanceExtensions(m_window, &extensionCount, extensionNames);
 
-	return const VkInstanceCreateInfo {
+	return VkInstanceCreateInfo {
 	   VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO, // sType
 	   nullptr,                                // pNext
 	   0,                                      // flags
