@@ -3,6 +3,7 @@
 #include "imgui_sdl.h"
 #include "../core/Application.h"
 #include "../rendering/Window.h"
+#include "../core/Timer.h"
 
 void UI::Initialize()
 {
@@ -25,7 +26,8 @@ void UI::Render()
 
 	{
 		ImGui::Begin("DEBUG");
-		ImGui::Text("");
+		ImGui::Text("Application Frame Rate");
+		ImGui::Text(std::to_string(1000.0F / Time::GetDelta()).c_str());
 		ImGui::End();
 	}
 
