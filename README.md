@@ -11,7 +11,7 @@
   ### Technologies utilisées
   ![Sdl-logo](https://github.com/HugoQuevaReborn/NovelEngine/assets/139586455/a74a4b72-24a4-4aae-940b-39655357c7f4)
   
-  ![vulkan_new](https://github.com/HugoQuevaReborn/NovelEngine/assets/139586455/fedf9351-3927-451e-bcba-198fedb3410b)
+  ![openGL_new](https://github.com/HugoQuevaReborn/NovelEngine/assets/139586455/be522bce-b940-4fdd-b52c-d634f5a5cb7b)
 
 
   ### Système fonctionnent actuellement
@@ -37,7 +37,7 @@
     
   ![Sdl-logo](https://github.com/HugoQuevaReborn/NovelEngine/assets/139586455/a74a4b72-24a4-4aae-940b-39655357c7f4)
   
-  ![vulkan_new](https://github.com/HugoQuevaReborn/NovelEngine/assets/139586455/fedf9351-3927-451e-bcba-198fedb3410b)
+  ![openGL_new](https://github.com/HugoQuevaReborn/NovelEngine/assets/139586455/be522bce-b940-4fdd-b52c-d634f5a5cb7b)
 
 
   ### Currently working systems
