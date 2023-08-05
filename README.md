@@ -1,6 +1,11 @@
 <h1 align="center">C++ Novel Engine</h1>
 
 ![HyperSpeed_Logo_Dark](https://github.com/HugoQuevaReborn/NovelEngine/assets/139586455/8d2201b3-6c27-4f24-8778-b795bf868dd4)
+[![version](https://img.shields.io/badge/Version-1.0.0-blue.svg)](https://github.com/HugoQuevaReborn/NovelEngine)
+[![made-with-cpp](https://img.shields.io/badge/Made%20with-C++-red.svg)](https://github.com/HugoQuevaReborn/NovelEngine)
+[![license](https://img.shields.io/pypi/l/ansicolortags.svg)](https://mit-license.org/)
+[![GitHub issues](https://img.shields.io/github/issues/HugoQuevaReborn/NovelEngine.svg)](https://github.com/HugoQuevaReborn/NovelEngine/issues)
+
 ### **⚠ Ce logiciel n'est pas encore dans un stade conçu pour l'exportation de jeux vidéo.**
 ### **⚠ This software is currently not ready for game exportation.**
 # 🇫🇷
@@ -53,4 +58,3 @@
 
     Run NovelGame.sln
 ### **⚠ THIS PROJECT IS UNDER THE MIT LICENSE**
-  
