@@ -9,9 +9,9 @@
   Ce moteur contient les outils nécéssaire pour la création d'un jeu vidéo.
   
   ### Technologies utilisées
-  ![Sdl-logo](https://github.com/HugoQuevaReborn/NovelEngine/assets/139586455/a74a4b72-24a4-4aae-940b-39655357c7f4)
+  [![SDL2](https://github.com/HugoQuevaReborn/NovelEngine/assets/139586455/a74a4b72-24a4-4aae-940b-39655357c7f4)](https://libsdl.org/)
   
-  ![openGL_new](https://github.com/HugoQuevaReborn/NovelEngine/assets/139586455/be522bce-b940-4fdd-b52c-d634f5a5cb7b)
+  [![openGL_new](https://github.com/HugoQuevaReborn/NovelEngine/assets/139586455/be522bce-b940-4fdd-b52c-d634f5a5cb7b)](https://www.opengl.org/)
 
 
   ### Système fonctionnent actuellement
@@ -35,9 +35,9 @@
   
   ### Technologies used
     
-  ![Sdl-logo](https://github.com/HugoQuevaReborn/NovelEngine/assets/139586455/a74a4b72-24a4-4aae-940b-39655357c7f4)
+  [![SDL2](https://github.com/HugoQuevaReborn/NovelEngine/assets/139586455/a74a4b72-24a4-4aae-940b-39655357c7f4)](https://libsdl.org/)
   
-  ![openGL_new](https://github.com/HugoQuevaReborn/NovelEngine/assets/139586455/be522bce-b940-4fdd-b52c-d634f5a5cb7b)
+  [![openGL_new](https://github.com/HugoQuevaReborn/NovelEngine/assets/139586455/be522bce-b940-4fdd-b52c-d634f5a5cb7b)](https://www.opengl.org/)
 
 
   ### Currently working systems
