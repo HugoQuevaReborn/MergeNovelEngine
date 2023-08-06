@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SDL2/SDL_mixer.h>
-#include <string>
+#include <filesystem>
 
 class Audio
 {
@@ -24,5 +24,5 @@ private:
 
 class AudioLoader {
 public:
-	static Mix_Chunk* LoadAudio(const std::string& filename);
+	static Mix_Chunk* LoadAudio(const std::filesystem::path& filename);
 };

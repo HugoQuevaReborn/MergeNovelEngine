@@ -2,13 +2,14 @@
 #include <assert.h>
 #include <string>
 #include <SDL2/SDL.h>
+#include <filesystem>
+#include <type_traits>
 #include "BMemory.h"
 #include "defines.h"
 #include "../rendering/Window.h"
 
-#define __GAME_ASSERT(x)			assert(x);
-#define __GAME_THROW_EXCEPTION(x)	SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "An exception has occured", x, nullptr);
-#define __APPLICATION_NAME			"VISUAL NOVEL"
+#define __GAME_ASSERT(x)				(void)((!(x)) ||(_wassert(_CRT_WIDE(#x), _CRT_WIDE(__FILE__), (unsigned)(__LINE__)), 0));
+#define __APPLICATION_NAME				"VISUAL NOVEL"
 
 class Window;
 class Scene;
@@ -22,20 +23,18 @@ public:
 	~Application();
 
 	static Application& Get() { return *m_instance; }
-
-	std::string GetCurrentPath();
-	std::string GetAssetsPath();
-	const char* GetCurrentPathToChar();
 	
-	Window& GetWindow() const { return *m_application_window.get(); }
-	Scene& GetScene() { return *m_scene; }
+	void Initialize();
+	Scene* GetScene() { return m_scene; }
+	Window* GetWindow() const { return m_application_window.get(); }
+	const std::filesystem::path& GetCurrentPath();
+	const std::filesystem::path& GetAssetsPath();
 
 private:
-
 	static Application* m_instance;
 
 	bool m_hasAsserted = true;
-	std::string m_currentPath;
+	std::filesystem::path m_currentPath;
 	UPointer<Window> m_application_window;
 	Scene* m_scene;
 };

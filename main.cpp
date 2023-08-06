@@ -5,7 +5,7 @@
 
 int main() {
 	Application app;
-	app.GetWindow().Initialize();
+	app.Initialize();
 
 	return 0;
 }

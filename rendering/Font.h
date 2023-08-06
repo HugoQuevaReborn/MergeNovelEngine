@@ -1,5 +1,5 @@
 #pragma once
-#include <string>
+#include <filesystem>
 #include <SDL2/SDL_ttf.h>
 
 class Font
@@ -18,5 +18,5 @@ private:
 
 class FontLoader {
 public:
-	static TTF_Font* LoadFont(const std::string& font_name,int size);
+	static TTF_Font* LoadFont(const std::filesystem::path& font_name,int size);
 };

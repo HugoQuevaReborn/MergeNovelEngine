@@ -2,6 +2,7 @@
 #include "../core/Application.h"
 
 Audio::Audio(Mix_Chunk* audio)
+	: channel(0)
 {
 	m_audio = audio;
 }
@@ -40,9 +41,7 @@ void Audio::Resume() {
 	Mix_Resume(channel);
 }
 
-Mix_Chunk* AudioLoader::LoadAudio(const std::string& filename)
+Mix_Chunk* AudioLoader::LoadAudio(const std::filesystem::path& filename)
 {
-	std::string path = Application::Get().GetAssetsPath() + "\\audio\\" + filename;
-
-	return Mix_LoadWAV(path.c_str());
+	return Mix_LoadWAV((Application::Get().GetAssetsPath() / filename).string().c_str());
 }

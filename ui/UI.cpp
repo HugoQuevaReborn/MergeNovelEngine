@@ -8,7 +8,7 @@
 void UI::Initialize()
 {
 	ImGui::CreateContext();
-	ImGuiSDL::Initialize(Application::Get().GetWindow().GetRendererInstance(), __WINDOW_WITDH, __WINDOW_HEIGHT);
+	ImGuiSDL::Initialize(Application::Get().GetWindow()->GetRendererInstance(), __WINDOW_WITDH, __WINDOW_HEIGHT);
 	ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 }
 
@@ -17,10 +17,10 @@ void UI::Render()
 	ImGuiIO& io = ImGui::GetIO();
 
 	io.DeltaTime = 1.0F / __WINDOW_FPS;
-	io.MousePos = ImVec2(Application::Get().GetWindow().mouse_x, Application::Get().GetWindow().mouse_y);
-	io.MouseDown[0] = Application::Get().GetWindow().mouse_button & SDL_BUTTON(SDL_BUTTON_LEFT);
-	io.MouseDown[1] = Application::Get().GetWindow().mouse_button & SDL_BUTTON(SDL_BUTTON_RIGHT);
-	io.MouseWheel = Application::Get().GetWindow().mouse_wheel;
+	io.MousePos = ImVec2(Application::Get().GetWindow()->mouse_x, Application::Get().GetWindow()->mouse_y);
+	io.MouseDown[0] = Application::Get().GetWindow()->mouse_button & SDL_BUTTON(SDL_BUTTON_LEFT);
+	io.MouseDown[1] = Application::Get().GetWindow()->mouse_button & SDL_BUTTON(SDL_BUTTON_RIGHT);
+	io.MouseWheel = Application::Get().GetWindow()->mouse_wheel;
 
 	ImGui::NewFrame();
 

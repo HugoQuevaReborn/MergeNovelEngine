@@ -4,5 +4,5 @@
 
 float Time::GetDelta()
 {
-	return ((Application::Get().GetWindow().GetCurrentTick() - Application::Get().GetWindow().GetLastTick()) * 1000 / SDL_GetPerformanceFrequency());
+	return ((Application::Get().GetWindow()->GetCurrentTick() - Application::Get().GetWindow()->GetLastTick()) * 1000 / SDL_GetPerformanceFrequency());
 }

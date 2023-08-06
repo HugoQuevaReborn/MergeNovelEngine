@@ -2,11 +2,9 @@
 #include "../core/Application.h"
 #include <iostream>
 
-TTF_Font* FontLoader::LoadFont(const std::string& font_name, int size)
+TTF_Font* FontLoader::LoadFont(const std::filesystem::path& font_name, int size)
 {
-	std::string path = Application::Get().GetAssetsPath() + "\\font\\" + font_name;
-
-	return TTF_OpenFont(path.c_str(), size);
+	return TTF_OpenFont((Application::Get().GetAssetsPath() / font_name).string().c_str(), size);
 }
 
 Font::~Font()

@@ -1,23 +1,30 @@
 #include "Window.h"
-#include <iostream>
-#include <SDL2/SDL_vulkan.h>
+#include <SDL2/SDL_opengl.h>
+#include <GL/GL.h>
 #include "../core/Application.h"
 #include "../core/Timer.h"
 #include "../rendering/Texture.h"
-#include "../rendering/Font.h"
 #include "../core/Scene.h"
 #include "../core/Math.h"
 #include "../ui/UI.h"
 
-Window::Window() {
+Window::Window()
+	: m_renderer(nullptr), m_glContext(nullptr)
+{
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+
 	m_window = SDL_CreateWindow(
 		__APPLICATION_NAME,
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
 		__WINDOW_WITDH,
 		__WINDOW_HEIGHT,
-		SDL_WINDOW_VULKAN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_INPUT_GRABBED
+		SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_INPUT_GRABBED
 	);
+
+	__GAME_ASSERT(m_window == nullptr);
+
 }
 
 float Window::GetFramePerSeconds()
@@ -42,7 +49,6 @@ int Window::GetTicks()
 
 void Window::Initialize()
 {
-	
 	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
 
 	UI::Initialize();
@@ -108,119 +114,14 @@ void Window::input()
 
 void Window::draw()
 {
-	Application::Get().GetScene().GetBackground().Render();
 
 	UI::Render();
 	SDL_RenderPresent(GetRendererInstance());
 }
 
-void Window::vkInit()
-{
-	const VkInstanceCreateInfo instInfo = vkCreateInstanceInfo();
-
-	vkCreateInstance(&instInfo, nullptr, &m_vkInstance);
-
-	vkCreateNewDevice();
-}
-
-const VkInstanceCreateInfo Window::vkCreateInstanceInfo()
-{
-	//We get all the names of the extensions that Vulkan can find in order to create a Vulkan surface
-	//and a VkInstanceCreateInfo{} containing the necessary info for Vulkan to vkCreateInstance();
-	uint32_t extensionCount;
-	const char** extensionNames = 0;
-	SDL_Vulkan_GetInstanceExtensions(m_window, &extensionCount, nullptr);
-	extensionNames = new const char* [extensionCount];
-	SDL_Vulkan_GetInstanceExtensions(m_window, &extensionCount, extensionNames);
-
-	return VkInstanceCreateInfo {
-	   VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO, // sType
-	   nullptr,                                // pNext
-	   0,                                      // flags
-	   nullptr,                                // pApplicationInfo
-	   0,                                      // enabledLayerCount
-	   nullptr,                                // ppEnabledLayerNames
-	   extensionCount,                         // enabledExtensionCount
-	   extensionNames,                         // ppEnabledExtensionNames
-	};
-}
-
-void Window::vkCreateNewDevice()
-{
-
-	//Enumerate through all the GPU Vulkan can find, following with allocating enough space in a vector
-	//for all the graphic card(s) to be contained, then we get all the graphic card(s) with physicialDevices.data()
-	//this application only supports 1 GPU rendering. So it is going to get the first GPU found.
-	uint32_t physicalDeviceCount;
-	vkEnumeratePhysicalDevices(m_vkInstance, &physicalDeviceCount, nullptr);
-	std::vector<VkPhysicalDevice> physicalDevices(physicalDeviceCount);
-	vkEnumeratePhysicalDevices(m_vkInstance, &physicalDeviceCount, physicalDevices.data());
-	VkPhysicalDevice physicalDevice = physicalDevices[0];
-
-
-	uint32_t queueFamilyCount;
-	vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, &queueFamilyCount, nullptr);
-	std::vector<VkQueueFamilyProperties> queueFamilies(queueFamilyCount);
-	vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, &queueFamilyCount, queueFamilies.data());
-
-	VkSurfaceKHR surface;
-	SDL_Vulkan_CreateSurface(m_window, m_vkInstance, &surface);
-
-	uint32_t graphicsQueueIndex = UINT32_MAX;
-	uint32_t presentQueueIndex = UINT32_MAX;
-	VkBool32 support;
-	uint32_t i = 0;
-
-	for (const VkQueueFamilyProperties& queueFamily : queueFamilies) {
-		if (graphicsQueueIndex == UINT32_MAX && queueFamily.queueCount > 0 && queueFamily.queueFlags & VK_QUEUE_GRAPHICS_BIT)
-			graphicsQueueIndex = i;
-		if (presentQueueIndex == UINT32_MAX) {
-			vkGetPhysicalDeviceSurfaceSupportKHR(physicalDevice, i, surface, &support);
-			if (support)
-				presentQueueIndex = i;
-		}
-		++i;
-	}
-
-	float queuePriority = 1.0f;
-	VkDeviceQueueCreateInfo queueInfo {
-		VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO, // sType
-		nullptr,                                    // pNext
-		0,                                          // flags
-		graphicsQueueIndex,                         // graphicsQueueIndex
-		1,                                          // queueCount
-		&queuePriority,                             // pQueuePriorities
-	};
-
-	VkPhysicalDeviceFeatures deviceFeatures = {};
-	const char* deviceExtensionNames[] = { VK_KHR_SWAPCHAIN_EXTENSION_NAME };
-	VkDeviceCreateInfo createInfo = {
-		VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO,   // sType
-		nullptr,                                // pNext
-		0,                                      // flags
-		1,                                      // queueCreateInfoCount
-		&queueInfo,                             // pQueueCreateInfos
-		0,                                      // enabledLayerCount
-		nullptr,                                // ppEnabledLayerNames
-		1,                                      // enabledExtensionCount
-		deviceExtensionNames,                   // ppEnabledExtensionNames
-		&deviceFeatures,                        // pEnabledFeatures
-	};
-
-	vkCreateDevice(physicalDevice, &createInfo, nullptr, &m_device);
-
-	VkQueue graphicsQueue;
-	vkGetDeviceQueue(m_device, graphicsQueueIndex, 0, &graphicsQueue);
-
-	VkQueue presentQueue;
-	vkGetDeviceQueue(m_device, presentQueueIndex, 0, &presentQueue);
-}
-
 Window::~Window() {
-	vkDestroyDevice(m_device, nullptr);
-	vkDestroyInstance(m_vkInstance, nullptr);
+	SDL_DestroyRenderer(m_renderer);
 	SDL_DestroyWindow(m_window);
-	SDL_Vulkan_UnloadLibrary();
 }
 
 SDL_Window* Window::GetWindowInstance()
