@@ -1,6 +1,8 @@
+<p align="center">
+  <img src="https://github.com/HugoQuevaReborn/NovelEngine/assets/139586455/c98ef16e-abdc-4d33-b220-20620bc69c0c" alt="Merge Logo textonly"/>
+</p>
 <h1 align="center">C++ Novel Engine</h1>
 
-![HyperSpeed_Logo_Dark](https://github.com/HugoQuevaReborn/NovelEngine/assets/139586455/8d2201b3-6c27-4f24-8778-b795bf868dd4)
 [![version](https://img.shields.io/badge/Version-1.0.0-blue.svg)](https://github.com/HugoQuevaReborn/NovelEngine)
 [![made-with-cpp](https://img.shields.io/badge/Made%20with-C++-red.svg)](https://github.com/HugoQuevaReborn/NovelEngine)
 [![license](https://img.shields.io/pypi/l/ansicolortags.svg)](https://mit-license.org/)
@@ -56,3 +58,9 @@
 
     Run NovelGame.sln
 ### **⚠ THIS PROJECT IS UNDER THE MIT LICENSE**
+
+
+
+<p align="center">
+  <img src="https://github.com/HugoQuevaReborn/NovelEngine/assets/139586455/b4b0dbab-cd35-40ef-802a-bbc3823926c3" alt="Merge Logo"/>
+</p>
