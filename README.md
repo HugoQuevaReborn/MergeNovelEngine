@@ -1,3 +1,8 @@
+
+<h1 align="center">
+  ⚠ This project has been archived. We are working on a larger scale engine
+</h1>
+
 <p align="center">
   <img src="https://github.com/HugoQuevaReborn/NovelEngine/assets/139586455/c98ef16e-abdc-4d33-b220-20620bc69c0c" alt="Merge Logo textonly"/>
 </p>
